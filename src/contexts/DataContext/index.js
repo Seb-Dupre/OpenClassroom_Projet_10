@@ -1,53 +1,54 @@
-import PropTypes from "prop-types";
+import PropTypes from 'prop-types'
 import {
   createContext,
   useCallback,
   useContext,
   useEffect,
-  useState,
-} from "react";
+  useState
+} from 'react'
 
-const DataContext = createContext({});
+const DataContext = createContext({})
 
 export const api = {
   loadData: async () => {
-    const json = await fetch("/events.json");
-    return json.json();
-  },
-};
+    const json = await fetch('/events.json')
+    return json.json()
+  }
+}
 
 export const DataProvider = ({ children }) => {
-  const [error, setError] = useState(null);
-  const [data, setData] = useState(null);
+  const [error, setError] = useState(null)
+  const [data, setData] = useState(null)
   const getData = useCallback(async () => {
     try {
-      setData(await api.loadData());
+      setData(await api.loadData())
     } catch (err) {
-      setError(err);
+      setError(err)
     }
-  }, []);
+  }, [])
   useEffect(() => {
-    if (data) return;
-    getData();
-  });
-  
+    if (data) return
+    getData()
+  })
+
   return (
     <DataContext.Provider
       // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{
         data,
         error,
+        last: data?.events?.[data.events.length - 1] // ajout, recupere le dernier event ("?" pour evité les crashs en retournant undefined si ce qui est cherché n'existe pas )
       }}
     >
       {children}
     </DataContext.Provider>
-  );
-};
-
-DataProvider.propTypes = {
-  children: PropTypes.node.isRequired,
+  )
 }
 
-export const useData = () => useContext(DataContext);
+DataProvider.propTypes = {
+  children: PropTypes.node.isRequired
+}
 
-export default DataContext;
+export const useData = () => useContext(DataContext)
+
+export default DataContext
