@@ -15,6 +15,7 @@ L'application est le site d'une agence evenementielle.
 - `yarn test`
 
 
+créée des id dans event.json dans les focus (le carousel) afin d'évité les erreur de partage d'id ?
 
 
 
