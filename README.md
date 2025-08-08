@@ -17,6 +17,9 @@ L'application est le site d'une agence evenementielle.
 
 
 
+
+
+
 corriger le carousel, le selecteur de catégorie, formulaire de contact (manque une confirmation), derniere prestation dans le footer
 
 
